@@ -100,7 +100,6 @@ get_client().application.set_preferences({"add_trackers":f"{trackerslist}"})
 
 DOWNLOAD_DIR = None
 BOT_TOKEN = None
-BOT_NO = ""
 
 download_dict_lock = Lock()
 status_reply_dict_lock = Lock()
@@ -143,12 +142,7 @@ try:
 except:
     pass
 try:
-    BOT_NO = getConfig('BOT_NO')
-except KeyError:
-    BOT_NO = ""
-try:
     BOT_TOKEN = getConfig('BOT_TOKEN')
-    CHAT_NAME = getConfig('CHAT_NAME')
     parent_id = getConfig('GDRIVE_FOLDER_ID')
     DOWNLOAD_DIR = getConfig('DOWNLOAD_DIR')
     if not DOWNLOAD_DIR.endswith("/"):
@@ -189,7 +183,6 @@ def aria2c_init():
             aria2.remove([download], force=True, files=True)
     except Exception as e:
         logging.error(f"Aria2c initializing error: {e}")
-        pass
 
 if not ospath.isfile(".restartmsg"):
     Thread(target=aria2c_init).start()
